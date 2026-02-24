@@ -97,7 +97,7 @@ body {
     color:#ed2860;
 }
 
-#btncomecar {
+#btncomecar, #btnResultados {
     font-family: 'MinhaFonte', sans-serif;
     margin-top: 20px;
     padding: 10px 25px;
@@ -110,7 +110,41 @@ body {
     transition: 0.3s;
 }
 
-#btncomecar:hover {
+#btncomecar:hover, #btnResultados:hover {
+    transform: scale(1.05);
+}
+
+#ja-votou {
+    height: 100vh;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #ed2860;
+    padding: 20px;
+}
+
+#ja-votou h2 {
+    font-family: 'MinhaFonte', sans-serif;
+    font-size: 22px;
+    color: #ffc994;
+    margin-bottom: 25px;
+}
+
+#btnIrResultados {
+    font-family: 'MinhaFonte', sans-serif;
+    padding: 10px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: #f55482;
+    color: #ffc994;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btnIrResultados:hover {
     transform: scale(1.05);
 }
 
@@ -456,5 +490,13 @@ body {
 
     #resultados h2 {
         font-size: 2rem;
+    }
+
+    #ja-votou h2 {
+        font-size: 18px;
+    }
+
+    #btnIrResultados {
+        width: 100%;
     }
 }
