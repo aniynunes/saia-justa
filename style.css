@@ -1,0 +1,460 @@
+@font-face {
+    font-family: 'neon';
+    src: url('fontes/Neoneon.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'MinhaFonte';
+    src: url('fontes/NeueMachina-Ultrabold.otf') format('opentype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'MinhaFonte', sans-serif;
+    background-color: #2b818c;
+    color: #ffc994;
+}
+
+#login{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#login h2 {
+    font-family: 'MinhaFonte', sans-serif;
+    font-size: 4rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.grid-nomes {
+    display: grid;
+    grid-template-columns: repeat(2, 140px);
+    row-gap: 100px;
+    column-gap: 700px;
+    width: 85%;
+}
+
+.grid-nomes button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 5px 200px;
+    font-family: 'neon', sans-serif;
+    font-size: 3.5rem;
+
+
+    white-space: nowrap;
+
+    border-radius: 30px;
+    border: 2px solid #000;
+
+    background-color: #990069;
+
+    color: #e0d7ed;
+
+    text-shadow:
+        0 0 5px #baa6f7,
+        0 0 10px #6b6d8e,
+        0 0 20px #5e5777,
+        0 0 40px #334070;
+
+    box-shadow: 3px 3px 0px #000;
+
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.grid-nomes button:hover {
+    transform: scale(1.05); 
+}
+
+#loading {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #211c33;
+    color: #fff;
+    text-align: center;
+}
+
+#loading h1 {
+    font-family: 'MinhaFonte', sans-serif;
+    font-size: 5rem;
+    margin-bottom: 20px;
+    color:#ed2860;
+}
+
+#btncomecar {
+    font-family: 'MinhaFonte', sans-serif;
+    margin-top: 20px;
+    padding: 10px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: #294f54;
+    color: #8dcece;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btncomecar:hover {
+    transform: scale(1.05);
+}
+
+.hidden {
+    display: none;
+}
+
+.emoji-topo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.emoji-topo img {
+    width: 60px;
+}
+
+.barra-caixa {
+    width: 280px;
+    height: 28px;
+    border: 4px solid #294f54;
+    background-color: #211c33;
+    border-radius: 25px;
+    overflow: hidden;
+    margin-top: 25px;
+}
+
+.barra-progresso {
+    height: 100%;
+    width: 0%;
+    background-color: #8dcece;
+    border: 4px solid #211c33;
+    border-radius: 25px;
+    animation: carregar 5s forwards;
+}
+
+#votacao {
+    background: #ed2860;
+    min-height: 100vh;
+    padding: 50px;
+    text-align: center;
+}
+
+#cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 70px;
+    column-gap: 300px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.card {
+    background: #f55482;
+    padding: 25px;
+    border-radius: 25px;
+    width: 370px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.info h3 {
+    text-align: left;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.emojis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.foto {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.card h3 {
+    color:#ffc994;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.emoji-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.emoji-btn img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    transition: 0.2s ease;
+}
+
+.emoji-btn.selecionado img {
+    border: 3px solid #211c33;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #8dcece
+}
+
+#btn-continuar {
+    margin-top: 40px;
+    padding: 15px 40px;
+    border-radius: 30px;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    background: #f55482;
+    color:#ffc994;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btn-continuar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: gray;
+    color:#000;
+}
+
+#btn-continuar:not(:disabled):hover {
+    transform: scale(1.05);
+}
+
+#resultados {
+    background: #ffc994;
+    min-height: 100vh;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+#resultados h2 {
+    font-family: 'MinhaFonte', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 40px;
+    color:#ed2860;
+}
+
+#cards-container {
+    color: #f55482;
+    margin-bottom: 10px;
+    font-family: 'MinhaFonte', sans-serif;
+}
+
+#resultado-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.item-emoji span {
+    color:#f55482;
+    font-weight: bold;
+}
+
+.card-resultado {
+    background: #ffd8b2;
+    padding: 20px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-resultado > img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 10px 0;
+}
+
+.card-resultado h3 {
+    color: #f55482;
+    font-family: 'MinhaFonte', sans-serif;
+    margin-bottom: 10px;
+}
+
+.lista-emojis {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+}
+
+.item-emoji {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.item-emoji img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+@keyframes carregar {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    #loading h1 {
+        font-size: 2.5rem; 
+        text-align: center;
+    }
+
+    .emoji-topo {
+        display: flex;
+        justify-content: center;
+        gap: 15px; 
+        flex-wrap: wrap; 
+    }
+
+    .emoji-topo img {
+        width: 30%;
+        max-width: 30px; 
+    }
+
+    .barra-caixa {
+        width: 80%; 
+        height: 20px;
+    }
+
+    .barra-progresso {
+        border: 3px solid #211c33;
+    }
+
+    #btncomecar {
+        font-size: 14px;
+        padding: 8px 18px;
+    }
+
+    .grid-nomes {
+        grid-template-columns: 1fr;
+
+        row-gap: 30px;       
+        column-gap: 0px;     
+    }
+
+    .grid-nomes button {
+        padding: 15px 20px;   
+        font-size: 1.3rem;    
+    }
+
+    #login h2 {
+        font-size: 2rem;
+    }
+
+    #votacao {
+        padding: 30px 15px;
+    }
+
+    #cards-container {
+        grid-template-columns: 1fr;
+        row-gap: 30px;
+        column-gap: 0px;
+        justify-content: center;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 380px;
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .foto {
+        width: 70px;
+        height: 70px;
+    }
+
+    .card h3 {
+        font-size: 18px;
+    }
+
+    .emojis {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+    }
+
+    .emoji-btn img {
+        width: 38px;
+        height: 38px;
+    }
+
+    #btn-continuar {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    #resultados {
+        padding: 20px 10px;
+    }
+
+    #resultado-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .card-resultado {
+        padding: 15px;
+    }
+
+    .card-resultado img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .item-emoji img {
+        width: 16px;
+        height: 16px;
+    }
+
+    .item-emoji span {
+        font-size: 14px;
+    }
+
+    #resultados h2 {
+        font-size: 2rem;
+    }
+}
