@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function()
     const jaVotou = document.getElementById("ja-votou");
     const btnIrResultados = document.getElementById("btnIrResultados");
 
-
+    localStorage.removeItem("votouHoje");
 
     //lista fixa dos participantes
     const participantes = [ 
@@ -278,5 +278,6 @@ document.addEventListener("DOMContentLoaded", function()
     }
 
 });
+
 
 
