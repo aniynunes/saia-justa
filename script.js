@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", function()
     const votacao = document.getElementById("votacao"); //título da seção de votação
     const cardsContainer = document.getElementById("cards-container"); //container dos cards de votação
     const btnContinuar = document.getElementById("btn-continuar"); //botão de continuar da votação
+    const btnResultados = document.getElementById("btnResultados");
+    const jaVotou = document.getElementById("ja-votou");
+    const btnIrResultados = document.getElementById("btnIrResultados");
+
 
     //lista fixa dos participantes
     const participantes = [ 
@@ -124,6 +128,14 @@ document.addEventListener("DOMContentLoaded", function()
     async function salvarVotos()
     {
         btnContinuar.disabled = true; //desabilita o botão para evitar múltiplos cliques
+        
+        const hoje = new Date().toISOString().split('T')[0]; //data atual no formato YYYY-MM-DD
+
+        if(localStorage.getItem("votouHoje") === hoje) {
+            document.getElementById("votacao").style.display = "none";
+            document.getElementById("ja-votou").style.display = "flex";
+            return;
+        }
 
         for (let participante in votos) {
             const { error } = await db
@@ -144,22 +156,43 @@ document.addEventListener("DOMContentLoaded", function()
             }
         }
 
+        localStorage.setItem("votouHoje", hoje); //marca que o usuário votou hoje
+
         votacao.style.display = "none"; //esconde a seção de votação
         document.getElementById("resultados").style.display = "block"; //mostra a seção de resultados
         carregarResultados(); //carrega os resultados atualizados
     }
+
+    btnResultados.addEventListener("click", async function() {
+
+        loading.style.display = "none";
+        login.style.display = "none";
+        votacao.style.display = "none";
+
+        document.getElementById("resultados").style.display = "block";
+
+        await carregarResultados();
+    });
 
     btnContinuar.addEventListener("click", salvarVotos);
 
     //depois de 5 segundos, mostra o botão de começar
     setTimeout(() => { 
         botao.style.display = "block";
+        btnResultados.style.display = "block";
     }, 5000);
 
     //quando clicar no botão de começar, esconde o loading e mostra o login
     botao.addEventListener("click", function() {
         loading.style.display = "none";
         login.style.display = "flex";
+    });
+
+    //quando clicar no botão de ir para resultados, esconde a mensagem de já ter votado e mostra os resultados
+    btnIrResultados.addEventListener("click", async function() {
+        jaVotou.style.display = "none";
+        document.getElementById("resultados").style.display = "block";
+        await carregarResultados();
     });
 
     //adiciona evento de clique para cada botão de login
@@ -181,9 +214,15 @@ document.addEventListener("DOMContentLoaded", function()
         const resultadoContainer = document.getElementById("resultado-container");
         resultadoContainer.innerHTML = ""; //limpa os resultados antes de carregar novos
 
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+
+        const dataFormatada = hoje.toISOString();
+
         const { data, error } = await db
             .from("Votacoes")
-            .select("*");
+            .select("*")
+            .gte("created_at", dataFormatada); //filtra os votos apenas do dia atual
 
         console.log(data);
         
