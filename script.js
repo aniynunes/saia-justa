@@ -150,9 +150,8 @@ document.addEventListener("DOMContentLoaded", function()
             }
         }
 
-        votacao.style.display = "none"; //esconde a seção de votação
-        document.getElementById("resultados").style.display = "block"; //mostra a seção de resultados
-        carregarResultados(); //carrega os resultados atualizados
+        votacao.style.display = "none";
+        await carregarResultados();
     }
 
     btnResultados.addEventListener("click", async function() {
@@ -240,6 +239,37 @@ document.addEventListener("DOMContentLoaded", function()
             return;
         }
 
+        // pegar usuarios únicos que já votaram hoje
+        const usuariosQueVotaram = [...new Set(data.map(v => v.usuario))];
+
+        // verificar quem ainda não votou
+        const faltando = participantes.filter(p => 
+            !usuariosQueVotaram.includes(p.nome)
+        );
+
+        if (faltando.length > 0) {
+            // esconder resultados
+            document.getElementById("resultados").style.display = "none";
+
+            const aguardando = document.getElementById("aguardando");
+            const faltandoContainer = document.getElementById("faltando-container");
+
+            aguardando.style.display = "flex";
+            faltandoContainer.innerHTML = "";
+
+            faltando.forEach(pessoa => {
+                const div = document.createElement("div");
+                div.classList.add("faltando-card");
+                div.innerHTML = `
+                    <img src="${pessoa.foto}">
+                    <span>${pessoa.nome}</span>
+                `;
+                faltandoContainer.appendChild(div);
+            });
+
+            return; // PARA AQUI, não mostra resultados
+        }
+
         //estrutura para contar votos
         const contagem = {};
 
@@ -286,6 +316,5 @@ document.addEventListener("DOMContentLoaded", function()
     }
 
 });
-
 
 
