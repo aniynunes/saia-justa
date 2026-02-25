@@ -499,4 +499,23 @@ body {
     #btnIrResultados {
         width: 100%;
     }
+
+    #aguardando h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    }
+
+    #faltando-container {
+        gap: 20px;
+    }
+
+    .faltando-card img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .faltando-card span {
+        font-size: 1rem;
+    }
 }
+
