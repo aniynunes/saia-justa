@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function()
     {
         btnContinuar.disabled = true; //desabilita o botão para evitar múltiplos cliques
         
-        const hoje = new Date().toISOString().split('T')[0]; //data atual no formato YYYY-MM-DD
+        const hoje = new Date().toLocaleDateString("sv-SE") //data atual no formato YYYY-MM-DD
 
         if(localStorage.getItem("votouHoje") === hoje) {
             document.getElementById("votacao").style.display = "none";
@@ -276,6 +276,7 @@ document.addEventListener("DOMContentLoaded", function()
     }
 
 });
+
 
 
 
