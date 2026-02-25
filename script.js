@@ -267,8 +267,11 @@ document.addEventListener("DOMContentLoaded", function()
                 faltandoContainer.appendChild(div);
             });
 
-            return; // PARA AQUI, não mostra resultados
+            return;
         }
+
+        document.getElementById("aguardando").style.display = "none";
+        document.getElementById("resultados").style.display = "block";
 
         //estrutura para contar votos
         const contagem = {};
@@ -316,5 +319,6 @@ document.addEventListener("DOMContentLoaded", function()
     }
 
 });
+
 
 
