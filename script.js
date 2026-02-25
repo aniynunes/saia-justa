@@ -216,7 +216,9 @@ document.addEventListener("DOMContentLoaded", function()
         const hoje = new Date();
         hoje.setHours(0, 0, 0, 0);
 
-        const dataFormatada = hoje.toISOString();
+        const dataFormatada = new Date(
+            hoje.getTime() - hoje.getTimezoneOffset() * 60000
+        ).toISOString();
 
         const { data, error } = await db
             .from("Votacoes")
@@ -276,6 +278,7 @@ document.addEventListener("DOMContentLoaded", function()
     }
 
 });
+
 
 
 
