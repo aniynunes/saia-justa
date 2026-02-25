@@ -1,26 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Em manutenção</title>
-  <style>
-    body {
-      background: #ed2860;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: Arial;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queridômetro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="img/coracao.svg">
 </head>
 <body>
-  <div>
-    <h1>🚧 Estamos em manutenção</h1>
-    <p>Voltamos logo com novidades 👀</p>
-  </div>
+    <section id="loading">
+        <div class="emoji-topo">
+            <img src="img/cobra.svg" alt="Cobra">
+            <img src="img/partido.svg" alt="Partido">
+            <img src="img/coracao.svg" alt="Coracao">
+            <img src="img/planta.svg" alt="Planta">
+            <img src="img/mira.svg" alt="Mira">
+            <img src="img/biscoito.svg" alt="Biscoito">
+            <img src="img/mala.svg" alt="Mala">
+        </div>
+        <h1>Queridômetro</h1>
+        <div class="barra-caixa">
+            <div class="barra-progresso"></div>
+        </div>
+        <button id="btncomecar" style="display: none;">Começar</button>
+        <button id="btnResultados" style="display:none;">Ver resultados</button>
+    </section>
+
+    <section id="login" style="display: none;">
+        <h2>Selecione seu nome</h2>
+        <div class="grid-nomes">
+            <button>Anielen</button>
+            <button>Gabrielli</button>
+            <button>Giovana</button>
+            <button>Guilherme</button>
+            <button>Joao V.</button>
+            <button>Lara</button>
+        </div>
+    </section>
+
+    <section id="votacao" style="display: none;">
+        <h2 id="titulo-votacao"></h2>
+        <div id="cards-container"></div>
+        <button id="btn-continuar">Continuar</button>
+    </section>
+
+    <section id="resultados" style="display: none;">
+        <h2>Queridômetro do dia:</h2>
+        <div id="resultado-container"></div>
+    </section>
+
+    <section id="ja-votou" style="display:none;">
+        <h2>Você já votou hoje 👀</h2>
+        <button id="btnIrResultados">Ver resultados</button>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
 </body>
 </html>
-
