@@ -362,6 +362,51 @@ body {
     object-fit: contain;
 }
 
+#aguardando {
+    min-height: 100vh;
+    background: #ed2860;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+#aguardando h2 {
+    font-family: 'MinhaFonte', sans-serif;
+    font-size: 2.5rem;
+    color: #ffc994;
+    margin-bottom: 30px;
+}
+
+#faltando-container {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.faltando-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.faltando-card img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.faltando-card span {
+    font-family: 'MinhaFonte', sans-serif;
+    color: #ffc994;
+    font-size: 1.2rem;
+}
+
 @keyframes carregar {
     from {
         width: 0%;
@@ -518,4 +563,5 @@ body {
         font-size: 1rem;
     }
 }
+
 
