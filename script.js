@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function()
     const jaVotou = document.getElementById("ja-votou");
     const btnIrResultados = document.getElementById("btnIrResultados");
 
+
     //lista fixa dos participantes
     const participantes = [ 
         {nome: "Anielen", foto: "img/Anielen.svg"},
@@ -130,12 +131,6 @@ document.addEventListener("DOMContentLoaded", function()
         
         const hoje = new Date().toLocaleDateString("sv-SE") //data atual no formato YYYY-MM-DD
 
-        if(localStorage.getItem("votouHoje") === hoje) {
-            document.getElementById("votacao").style.display = "none";
-            document.getElementById("ja-votou").style.display = "flex";
-            return;
-        }
-
         for (let participante in votos) {
             const { error } = await db
                 .from("Votacoes")
@@ -154,8 +149,6 @@ document.addEventListener("DOMContentLoaded", function()
                 return;
             }
         }
-
-        localStorage.setItem("votouHoje", hoje); //marca que o usuário votou hoje
 
         votacao.style.display = "none"; //esconde a seção de votação
         document.getElementById("resultados").style.display = "block"; //mostra a seção de resultados
@@ -196,15 +189,34 @@ document.addEventListener("DOMContentLoaded", function()
 
     //adiciona evento de clique para cada botão de login
     botoesLogin.forEach(button => {
-        button.addEventListener("click", function() {
-            usuarioAtual = button.textContent; //pega o nome do botão clicado
-            
-            login.style.display = "none"; //esconde o login
-            votacao.style.display = "block"; //mostra a seção de votação
+        button.addEventListener("click", async function() {
+            usuarioAtual = button.textContent;
 
-            iniciarVotacao(); //inicia a votação
+            const hoje = new Date().toLocaleDateString("sv-SE");
+
+            const { data, error } = await db
+                .from("Votacoes")
+                .select("*")
+                .eq("usuario", usuarioAtual)
+                .gte("created_at", hoje + "T00:00:00")
+                .lt("created_at", hoje + "T23:59:59");
+
+            if (error) {
+                console.error(error);
+                return;
+            }
+
+            if (data.length > 0) {
+                login.style.display = "none";
+                jaVotou.style.display = "flex";
+                return;
+            }
+
+            login.style.display = "none";
+            votacao.style.display = "block";
+            iniciarVotacao();
+            });
         });
-    });
 
     async function carregarResultados() 
     {
@@ -213,17 +225,13 @@ document.addEventListener("DOMContentLoaded", function()
         const resultadoContainer = document.getElementById("resultado-container");
         resultadoContainer.innerHTML = ""; //limpa os resultados antes de carregar novos
 
-        const hoje = new Date();
-        hoje.setHours(0, 0, 0, 0);
-
-        const dataFormatada = new Date(
-            hoje.getTime() - hoje.getTimezoneOffset() * 60000
-        ).toISOString();
+        const hoje = new Date().toLocaleDateString("sv-SE");
 
         const { data, error } = await db
             .from("Votacoes")
             .select("*")
-            .gte("created_at", dataFormatada); //filtra os votos apenas do dia atual
+            .gte("created_at", hoje + "T00:00:00")
+            .lt("created_at", hoje + "T23:59:59");
 
         console.log(data);
         
@@ -278,9 +286,6 @@ document.addEventListener("DOMContentLoaded", function()
     }
 
 });
-
-
-
 
 
 
