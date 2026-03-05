@@ -30,6 +30,21 @@ document.addEventListener("DOMContentLoaded", function()
     let usuarioAtual = null; //guarda quem ta logado no momento
     let votos = {}; //vai armazenar votos futuramente
 
+    function intervaloHoje() {
+        const agora = new Date();
+
+        const inicio = new Date(agora);
+        inicio.setHours(0,0,0,0);
+
+        const fim = new Date(agora);
+        fim.setHours(23,59,59,999);
+
+        return {
+            inicio: inicio.toISOString(),
+            fim: fim.toISOString()
+        };
+    }
+
     function vereficarSePodeContinuar()
     {
         const totalNecessario = participantes.length - 1; //total de votos necessários (todos menos o usuário atual)
@@ -128,8 +143,6 @@ document.addEventListener("DOMContentLoaded", function()
     async function salvarVotos()
     {
         btnContinuar.disabled = true; //desabilita o botão para evitar múltiplos cliques
-        
-        const hoje = new Date().toLocaleDateString("sv-SE") //data atual no formato YYYY-MM-DD
 
         for (let participante in votos) {
             const { error } = await db
@@ -191,14 +204,14 @@ document.addEventListener("DOMContentLoaded", function()
         button.addEventListener("click", async function() {
             usuarioAtual = button.textContent;
 
-            const hoje = new Date().toLocaleDateString("sv-SE");
+            const {inicio, fim} = intervaloHoje();
 
             const { data, error } = await db
                 .from("Votacoes")
                 .select("*")
                 .eq("usuario", usuarioAtual)
-                .gte("created_at", hoje + "T00:00:00")
-                .lt("created_at", hoje + "T23:59:59");
+                .gte("created_at", inicio)
+                .lt("created_at", fim)
 
             if (error) {
                 console.error(error);
@@ -224,13 +237,13 @@ document.addEventListener("DOMContentLoaded", function()
         const resultadoContainer = document.getElementById("resultado-container");
         resultadoContainer.innerHTML = ""; //limpa os resultados antes de carregar novos
 
-        const hoje = new Date().toLocaleDateString("sv-SE");
+        const {inicio, fim} = intervaloHoje();
 
         const { data, error } = await db
             .from("Votacoes")
             .select("*")
-            .gte("created_at", hoje + "T00:00:00")
-            .lt("created_at", hoje + "T23:59:59");
+            .gte("created_at", inicio)
+            .lt("created_at", fim);
 
         console.log(data);
         
@@ -319,6 +332,7 @@ document.addEventListener("DOMContentLoaded", function()
     }
 
 });
+
 
 
 
